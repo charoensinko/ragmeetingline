@@ -1,0 +1,41 @@
+# --- Secrets / environment ---
+.env
+.env.*
+*.pem
+*.key
+*.p12
+secrets/
+credentials/
+service-account*.json
+
+# --- Python artifacts ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.log
+
+# --- Virtual environments ---
+.venv/
+venv/
+ENV/
+env/
+
+# --- FastAPI / Uvicorn runtime ---
+*.pid
+
+# --- Jupyter (ถ้ามี) ---
+.ipynb_checkpoints/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+service_account.json
+service_account*.json

@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: rag-line-meeting-bot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: bash start.sh
+    healthCheckPath: /health
+    envVars:
+      - key: TIMEZONE
+        value: Asia/Bangkok
+      - key: TOP_K
+        value: "5"
+      - key: SIM_THRESHOLD
+        value: "0.35"
+      # ลด log TF
+      - key: TF_CPP_MIN_LOG_LEVEL
+        value: "3"
+      - key: TF_ENABLE_ONEDNN_OPTS
+        value: "0"
+      # ให้ HF/transformers cache อยู่ที่ /tmp
+      - key: HF_HOME
+        value: /tmp/hf
+      - key: TRANSFORMERS_CACHE
+        value: /tmp/hf
