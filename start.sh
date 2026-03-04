@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# Render จะส่ง PORT มาให้
 PORT=${PORT:-8000}
+echo "Starting uvicorn on port $PORT"
 
-# รัน uvicorn
-exec uvicorn app.main:app --host 0.0.0.0 --port $PORT
+exec uvicorn app.main:app --host 0.0.0.0 --port "$PORT"
