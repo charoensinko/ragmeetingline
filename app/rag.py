@@ -12,6 +12,7 @@ from app.utils import (
 )
 
 from ingestion.embed_local import embed_query  # local embedding
+import re
 
 TOP_K = int(os.environ.get("TOP_K", "5"))
 SIM_THRESHOLD = float(os.environ.get("SIM_THRESHOLD", "0.35"))
@@ -39,8 +40,13 @@ CONTEXT:
 - ถ้ามีหลายรายการ ให้จัดเป็นรายการเรียงตามวันและเวลา
 - แสดงเวลาเริ่ม + หัวข้อ + (ถ้ามี) Zoom link
 - ถ้าผู้ใช้ถามว่า "ฝ่ายไหนต้องเข้าร่วม" ให้สรุปรายชื่อฝ่ายด้วย
-ปิดท้ายด้วยอ้างอิง row_id และวันที่"""
-    return chat_completion(SYSTEM_PROMPT, user_prompt)
+"""
+    ans = chat_completion(SYSTEM_PROMPT, user_prompt)
+
+    # ✅ post-process: ตัดบรรทัด "อ้างอิง: ..." ทิ้ง (กันกรณี LLM ใส่มาเอง)
+    ans = re.sub(r"\n?อ้างอิง:.*$", "", ans, flags=re.DOTALL).strip()
+
+    return ans
 
 
 def no_meeting_message(query: str, label: str, date_iso: str | None, dept_filter: str | None) -> str:
